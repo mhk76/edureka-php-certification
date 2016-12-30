@@ -7,4 +7,4 @@ Changes compared to the spec:
 - added leave_request_status table
 - added applicant_status table
 
-#NOTE: This is not optimized for lots of users. It will start to load slower with more data
+NOTE: This is not optimized for lots of users. It will start to load slower with more data

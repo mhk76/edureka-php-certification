@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html data-ng-app="appDevTechApp">
+<head>
+	<title>AppDev Technology</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+	<link rel="stylesheet" href="index.css" />
+</head>
+<body data-ng-controller="appDevTechController">
+
+	<div class="header">AppDev Technologies</div>
+
+	<div class="toolbar">
+		<span class="link" data-ng-class="{ active: show.view==='home' }" data-ng-click="setView('home')" data-ng-hide="data.user">Home</span>
+		<span class="link" data-ng-class="{ active: show.view==='user' }" data-ng-click="setView('user')" data-ng-show="data.user">Home</span>
+		<span class="link" data-ng-class="{ active: show.view==='about' }" data-ng-click="setView('about')">About Us</span>
+		<span class="link" data-ng-class="{ active: show.view==='projects' }" data-ng-click="setView('projects')">Projects</span>
+		<span class="link" data-ng-class="{ active: show.view==='vacancies' }" data-ng-click="setView('vacancies')">Vacancies</span>
+		<div class="loginBox">
+			<span class="name" data-ng-show="data.user.createDate">
+				Welcome {{ data.user.firstName }} {{ data.user.lastName }}
+			</span>
+			<span class="link" data-ng-show="data.user.createDate" data-ng-click="logout()">Logout</span>
+			<span class="link" data-ng-hide="data.user.createDate" data-ng-click="showLogin()">Login</span>
+		</div>
+	</div>
+
+	<div class="contentFrame">
+	<div class="content" data-ng-switch="show.view">
+
+		<div data-ng-switch-when="home" class="home">
+			<p class="welcome">Welcome to AppDev Technologies</p>
+			<p class="motto">Experts in Web Application Development</p>
+		</div>
+
+		<div class="user" data-ng-switch-when="user">
+			<div data-ng-include="userUrl"></div>
+		</div>
+
+		<div data-ng-switch-when="about" class="about">
+			<p>We are...</p>
+			<p>We do...</p>
+		</div>
+
+		<div data-ng-switch-when="projects" class="projects">
+			<h1 data-ng-repeat-start="project in data.projects" data-ng-bind="project.projectTitle"></h1>
+			<div>{{ project.startDate.toLocaleDateString() }} to {{ project.endDate.toLocaleDateString() }}</div>
+			<p data-ng-repeat-end data-ng-bind="project.description"></p>
+		</div>
+
+	</div>
+	</div>
+
+	<div class="background" style="background-position-x:{{ -data.screenWidth * 0.4 }}px"></div>
+
+	<div class="footer">&copy; AppDev Technologies</div>
+
+	<div data-dialog="show.login" data-focus="username" width="20rem" height="12rem">
+		<h1>Login</h1>
+		<dl>
+			<dt>Username</dt>
+			<dd>
+				<input type="text" maxlength="20" data-ng-model="username" />
+			</dd>
+			<dt>Password</dt>
+			<dd>
+				<input type="password" data-ng-model="password" />
+			</dd>
+		</dl>
+		<div class="buttons">
+			<span class="link" data-ng-click="login(username, password)">Login</span>
+			<span class="link" data-ng-click="closeDialog()">Close</span>
+		</div>
+	</div>
+
+</body>
+</html>

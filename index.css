@@ -1,0 +1,253 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+body > * {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	z-index: 1;
+}
+
+h1 {
+    margin: 0 0 0.2rem 0;
+    padding: 0.2rem 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px dashed #ccc;
+}
+p {
+	margin: 1rem 0.5rem;
+}
+dt {
+	margin: 0.5rem 0.5rem 0.1rem 0.5rem;
+}
+dd {
+	margin-left: 1rem;
+}
+dd + dd {
+	margin-top: 2px;
+}
+input[type=text],
+input[type=password],
+input[type=email] {
+	width: calc(100% - 1rem);
+}
+
+.link {
+	display: inline-block;
+	padding: 0 0.5rem;
+	border-bottom: 3px solid transparent;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #00e;
+}
+.link:hover:not(.disabled) {
+	border-color: #c00;
+	cursor: pointer;
+	color: #c00;
+}
+.link.active {
+	color: #c00;
+}
+
+.required {
+	color: #c00;
+	font-weight: bold;
+	display: inline-block;
+	margin-left: 2px;
+}
+
+.missing {
+	border: 1px solid #c00;
+	outline: 1px solid #c00;
+}
+
+
+.header {
+	top: 0;
+	height: 6rem;
+	padding: 0 5rem;
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 4rem;
+	line-height: 6rem;
+	font-weight: bold;
+	color: #33f;
+	background: #eee;
+}
+
+.toolbar {
+	position: absolute;
+	top: 6rem;
+	height: 2rem;
+	padding: 0 2rem;
+	line-height: 2rem;
+	color: #77f;
+	background: #000;
+}
+.toolbar .link:not(.active) {
+	color: #ddd;
+}
+.toolbar .link {
+	line-height: calc(2rem - 6px);
+}
+.toolbar .loginBox {
+	position: absolute;
+	top: 0;
+	right: 1rem;
+}
+
+.contentFrame {
+	top: 8rem;
+	bottom: 2rem;
+	padding: 0 1rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	z-index: 1;
+}
+.content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.content > .home .welcome {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	color: #c00;
+	font-size: 3rem;
+}
+
+.content > .home .motto {
+	position: absolute;
+	top: 50%;
+	left: 45%;
+	color: #00e;
+	font-size: 2rem;
+}
+
+.content > .user {
+	padding: 1rem 1rem 1rem 14rem;
+}
+.content > .user .actions {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1rem;
+    padding-top: 1rem;
+    background: #ccc;
+    white-space: nowrap;
+}
+.content > .user .actions > div {
+	display: block;
+    width: 10rem;
+	margin-top: -3px;
+    margin-left: 0.8rem;
+    padding: 0.5rem 1rem;
+	border-top: 3px #ccc solid;
+    border-left: 3px #ccc solid;
+	border-top-left-radius: 10px;
+	font-weight: bold;
+    text-align: center;	
+}
+.content > .user .list > .item {
+	position: relative;
+	padding: 1rem;
+}
+.content > .user .list > .item + .item {
+	border-top: 1px dotted #888;
+}
+.content > .user .list .name {
+	font-weight: bold;
+}
+.content > .user .list .info {
+	display: inline-block;
+}
+.content > .user .list .info + .info {
+	margin-left: 1rem;
+}
+.content > .user .list .info label:after {
+	content: ': ';
+}
+.content > .user .list .info span:empty:after {
+	content: '-';
+}
+.content > .user .list .info.status {
+	font-weight: bold;
+}
+.content > .user .list .buttons {
+	position: absolute;
+	right: 0;
+	top: 1rem;
+}
+
+.content > .about {
+	font-size: 1.5rem;
+	line-height: 2rem;
+}
+
+.content > .projects div {
+	margin: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.background {
+	position: absolute;
+	width: auto;
+	height: 100%;
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/2/26/Blank_globe.svg);
+	background-repeat: no-repeat;
+	background-size: auto 150%;
+	background-attachment: fixed;
+	background-position-y: 12rem;
+	background-color: #eef;
+	opacity: 0.2;
+	z-index: 0;
+}
+
+.footer {
+	bottom: 0;
+	height: 2rem;
+	padding: 0 2rem;
+	line-height: 2rem;
+	color: #ddd;
+	background: #000;
+}
+
+.dialogFrame {
+	position: absolute;
+	padding: 1rem;
+	background: #fff;
+	box-shadow: #444 0 0 5px 5px;
+	z-index: 1001;
+}
+.dialog {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.dialogMask {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: #444;
+	opacity: 0.5;
+	z-index: 1000;
+}
+.dialog .buttons {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding-top: 0.5rem;
+	border-top: 1px dashed #ccc;
+	text-align: right;
+}

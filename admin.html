@@ -1,0 +1,129 @@
+<div data-ng-switch="show.list">
+
+	<div class="actions">
+		<div data-ng-repeat="listLink in listLinks">
+			<span class="link" data-ng-class="{ active: show.list === listLink.key }"
+			      data-ng-click="show.list = listLink.key"
+			      data-ng-bind="listLink.title"></span>
+		</div>
+		<div class="link disabled"></div>
+	</div>
+
+	<div data-ng-switch-when="leaveRequests" class="list">
+		<h1>Pending leave requests</h1>
+		<div data-ng-repeat="request in data.leaveRequests" class="item">
+			<span class="name" data-ng-bind="request.employeeName"></span>
+			<span class="timespan">{{ request.leaveFrom.toLocaleString() }} - {{ request.leaveTo.toLocaleString() }}</span>
+			<span class="reason" data-ng-bind="request.reason"></span>
+			<div class="buttons">
+				<span class="link" data-ng-click="acceptLeaveRequest(request)">Accept</span>
+				<span class="link" data-ng-click="rejectLeaveRequest(request)">Reject</span>
+			</div>
+		</div>
+		<div data-ng-show="data.leaveRequests.length === 0" class="item">No pending requests</div>
+	</div>
+
+	<div data-ng-switch-when="employees" class="list">
+		<h1>Employees</h1>
+		<div data-ng-repeat="employee in data.employees" class="item">
+			<div>
+				<span class="name">{{ employee.firstName }} {{ employee.lastName.toUpperCase() }}</span>,
+				<span class="designation" data-ng-bind="data.designations[employee.designationId].designationName"></span>
+			</div>
+			<span class="info">
+				<label>Address</label>
+				<span data-ng-bind="employee.address"></span>
+			</span>
+			<span class="info">
+				<label>Contact number</label>
+				<span data-ng-bind="employee.contactNo"></span>
+			</span>
+			<span class="info">
+				<label>Basic pay</label>
+				<span data-ng-bind="employee.basicPay"></span>
+			</span>
+			<span class="info">
+				<label>Joining date</label>
+				<span data-ng-bind="formatDate(employee.joiningDate)"></span>
+			</span>
+			<span class="info status" data-ng-bind="employee.status==1 ? 'Active' : 'Inactive'"></span>
+			<div class="buttons">
+				<span class="link" data-ng-click="editEmployee(employee)">Edit</span>
+				<span class="link" data-ng-if="employee.employeeId != 1" data-ng-click="removeEmployee(employee)">Remove</span>
+			</div>
+		</div>
+		<span class="link" data-ng-click="editEmployee({ changePassword: true })">Add employee</span>
+	</div>
+
+	<div data-dialog="show.employee" data-data="editedEmployee" data-data-alias="employee" data-focus="employee.designationId" width="30rem" height="41rem">
+		<h1 data-ng-show="employee.employeeId">Edit employee</h1>
+		<h1 data-ng-hide="employee.employeeId">Add employee</h1>
+		<dl>
+			<dt>Designation</dt>
+			<dd>
+				<select data-ng-model="employee.designationId"
+						data-ng-options="value.designationId as value.designationName for (key, value) in data.designations"
+						data-required>
+				</select>
+			</dd>
+			<dt>First name</dt>
+			<dd>
+				<input type="text" maxlength="50" data-ng-model="employee.firstName" data-required />
+			</dd>
+			<dt>Last name</dt>
+			<dd>
+				<input type="text" maxlength="50" data-ng-model="employee.lastName" data-required />
+			</dd>
+			<dt>Address</dt>
+			<dd>
+				<input type="text" maxlength="100" data-ng-model="employee.address" />
+			</dd>
+			<dt>Contact number</dt>
+			<dd>
+				<input type="text" maxlength="20" data-ng-model="employee.contactNo" />
+			</dd>
+			<dt>Basic pay</dt>
+			<dd>
+				<input type="number" min="0" max="10000000" data-ng-model="employee.basicPay" />
+			</dd>
+			<dt>Username</dt>
+			<dd>
+				<input type="text" maxlength="50" data-ng-model="employee.username" data-required />
+			</dd>
+			<dt>Password</dt>
+			<dd data-ng-show="!employee.changePassword">
+				<span class="link" data-ng-click="employee.changePassword=true">Change password</span>
+			</dd>
+			<dd data-ng-hide="!employee.changePassword">
+				<input type="password" maxlength="50" data-ng-model="employee.password" data-required />
+			</dd>
+			<dt>Re-type password</dt>
+			<dd data-ng-hide="!employee.changePassword">
+				<input type="password" maxlength="50" data-ng-model="employee.password2" data-required />
+			</dd>
+			<dt>Joining date</dt>
+			<dd>
+				<input type="date" data-ng-model="employee.joiningDate" data-as-date data-required />
+			</dd>
+			<dt>Status</dt>
+			<dd data-ng-hide="employee.status==0">
+				Active
+			</dd>
+			<dd data-ng-show="employee.status==0">
+				Deactive
+			</dd>
+			<dt>Created date</dt>
+			<dd data-ng-bind="formatDateTime(employee.createDate)"></dd>
+		</dl>
+		<div class="buttons">
+			<span class="link" data-ng-hide="employee.status==0 || employee.employeeId==1 || !employee.employeeId" data-ng-click="employee.status='0'">Deactivate</span>
+			<span class="link" data-ng-show="employee.status==0" data-ng-click="employee.status='1'">Activate</span>
+			<span data-ng-hide="employee.employeeId==1 || !employee.employeeId">|</span>
+			<span class="link" data-ng-hide="employee.employeeId==1 || !employee.employeeId" data-ng-click="deleteEmployee(employee)">Delete</span>
+			<span data-ng-hide="employee.employeeId==1 || !employee.employeeId">|</span>
+			<span class="link" data-ng-click="saveEmployee(employee)">Save</span>
+			<span class="link" data-ng-click="closeDialog()">Cancel</span>
+		</div>
+	</div>
+
+</div>
